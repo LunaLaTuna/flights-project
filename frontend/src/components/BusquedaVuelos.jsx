@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { VuelosInput } from "./VuelosInput";
-import { DatePicker, Radio, Button } from "antd";
+import { DatePicker, Radio, Button, Input } from "antd";
 import { busquedaCompleta } from "../api";
 import { Navigate, useNavigate } from "react-router-dom";
 
 export function BusquedaVuelos() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [destino, setDestino] = useState(null);
   const [origen, setOrigen] = useState(null);
   const [tipoVuelo, setTipoVuelos] = useState(1);
   const [fecha, setFecha] = useState(null);
   const [vuelos, setVuelos] = useState([]);
+  const [pasajeros, setPasajeros] = useState(null);
 
   const onChangeTipoVuelos = (e) => {
     setTipoVuelos(e.target.value);
@@ -34,16 +35,24 @@ export function BusquedaVuelos() {
     );
     setVuelos(res.data);
     console.log(res.data);
-    return res.data;
+    return res.data; /*por que aquí es necesario el return?? */
   };
 
   const handlerBuscarVuelos = async () => {
     const resultadoVuelos = await buscarVuelos(origen, destino, fecha);
-    navigate('/ListaVuelos', {
+    const pasajero = pasajeros
+    console.log(pasajero)
+    navigate("/ListaVuelos", {
       state: {
-        vuelos : resultadoVuelos 
-      }
+        vuelos: resultadoVuelos,
+        pasajeros : pasajero
+      },
     });
+  };
+
+  const handleInputPasajeros = (e) => {
+      console.log(Number(e.target.value))
+      setPasajeros(Number(e.target.value))
   };
 
   return (
@@ -81,6 +90,10 @@ export function BusquedaVuelos() {
           campoBusqueda="arrival_city"
           onSelect={(value) => setDestino(value)}
         />
+
+        <div>
+          <Input placeholder="Número de pasajeros" value={pasajeros} onChange={handleInputPasajeros}/> {/*los input reciben un evento y es necesario usarlo para acceder a su valor */}
+        </div>
       </div>
 
       {origen && destino && tipoVuelo === 1 && (
