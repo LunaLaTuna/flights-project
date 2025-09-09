@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { VuelosInput } from "./VuelosInput";
 import { DatePicker, Radio, Button, Input } from "antd";
 import { busquedaCompleta } from "../api";
+import { busquedaCompleta2 } from "../api";
 import { Navigate, useNavigate } from "react-router-dom";
 
 export function BusquedaVuelos() {
@@ -28,14 +29,31 @@ export function BusquedaVuelos() {
 
   const buscarVuelos = async (origen, destino, fecha) => {
     //** la principal causa de este error fue el formato de las fechas, ya que esperaba un formato con guiones y no / */
-    const res = await busquedaCompleta(
-      origen,
-      destino,
-      fecha.format("YYYY-MM-DD")
-    );
-    setVuelos(res.data);
-    console.log(res.data);
-    return res.data; /*por que aquí es necesario el return?? */
+    if (Array.isArray(fecha)) {
+      const [fechaDeparture, fechaComeback] = fecha;
+
+      const res = await busquedaCompleta2(
+        origen,
+        destino,
+        fechaDeparture.format("YYYY-MM-DD"),
+        fechaComeback.format("YYYY-MM-DD")
+      );
+      setVuelos(res.data);
+      console.log(res.data);
+      return res.data;
+
+    } else {
+      const res = await busquedaCompleta(
+        origen,
+        destino,
+        fecha.format("YYYY-MM-DD")
+      );
+      setVuelos(res.data);
+      console.log(res.data);
+      console.log(fecha);
+
+      return res.data;
+    }/*por que aquí es necesario el return?? */
   };
 
   const handlerBuscarVuelos = async () => {
