@@ -9,7 +9,7 @@ export const flights = () => VuelosApi.get('/')
 
 
 
-export const ObtenerCiudades = () => VuelosApi.get(`/ciudades/`)
+export const ObtenerCiudades = (city_name) => VuelosApi.get(`/ciudades/?city_name=${city_name}`)
 
 export const reservationsDepartureCity = (departure_city) => VuelosApi.get(`/reservaciones/?departure_city=${departure_city}`)
 

@@ -56,6 +56,8 @@ export function BusquedaVuelos() {
     }/*por que aquí es necesario el return?? */
   };
 
+
+  //mostrar el vuelo encontrado 
   const handlerBuscarVuelos = async () => {
     const resultadoVuelos = await buscarVuelos(origen, destino, fecha);
     const pasajero = pasajeros
