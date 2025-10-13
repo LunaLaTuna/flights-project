@@ -7,6 +7,10 @@ const VuelosApi = axios.create({
 
 export const flights = () => VuelosApi.get('/')
 
+
+
+export const ObtenerCiudades = () => VuelosApi.get(`/ciudades/`)
+
 export const reservationsDepartureCity = (departure_city) => VuelosApi.get(`/reservaciones/?departure_city=${departure_city}`)
 
 export const reservationsArrivalCity = (arrival_city) => VuelosApi.get(`/reservaciones/?arrival_city=${arrival_city}`)

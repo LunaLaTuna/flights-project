@@ -36,8 +36,8 @@ class ReservertionView(viewsets.ModelViewSet):#endpoint
     
     
 
-class Vuelos(viewsets.ViewSet):#enponint
-    def list(self, request):
+class Vuelos(viewsets.ViewSet):#endponint
+    def list(self):
         access_key = config('API_KEY_FLIGHT')
         url = f"https://api.aviationstack.com/v1/flights?access_key={access_key}"
         response = requests.get(url)
@@ -45,3 +45,10 @@ class Vuelos(viewsets.ViewSet):#enponint
         return Response(data)
     
 
+class Cities(viewsets.ViewSet):
+    def list(self, request):
+        acces_key = config ('API_KEY_FLIGHT')
+        url = f"https://api.aviationstack.com/v1/cities?access_key={acces_key}"
+        response = requests.get(url)
+        data = response.json()
+        return Response(data)

@@ -1,5 +1,6 @@
 import React from "react";
 import { BusquedaVuelos}  from "../components/BusquedaVuelos";
+import {Ciudades} from "../components/Ciudades";
 
 export function MenuPage() {
   return (
@@ -15,6 +16,8 @@ export function MenuPage() {
         </nav>
       </div>
       <BusquedaVuelos />
+
+      <Ciudades />
     </div>
   );
 }
