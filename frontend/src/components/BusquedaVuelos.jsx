@@ -76,8 +76,8 @@ export function BusquedaVuelos() {
   };
 
   return (
-    <div className="flex-col mt-20 justify-items-center">
-      <div className="mb-5">
+    <div className="flex-col mt-20 w-150 border justify-items-center">
+      <div className="mb-2 ">
         <Radio.Group
           onChange={onChangeTipoVuelos}
           value={tipoVuelo}
@@ -98,7 +98,7 @@ export function BusquedaVuelos() {
         />
       </div>
 
-      <div className="flex flex-row gap-2">
+      <div className="flex flex-row gap-2 ">
         <VuelosInput
           placeholder="Origen"
           campoBusqueda="departure_city"
@@ -111,7 +111,7 @@ export function BusquedaVuelos() {
           onSelect={(value) => setDestino(value)}
         />
 
-        <div>
+        <div className="w-40">
           <Input placeholder="Número de pasajeros" value={pasajeros} onChange={handleInputPasajeros}/> {/*los input reciben un evento y es necesario usarlo para acceder a su valor */}
         </div>
       </div>

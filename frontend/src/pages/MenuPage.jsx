@@ -1,10 +1,11 @@
 import React from "react";
 import { BusquedaVuelos}  from "../components/BusquedaVuelos";
+import { MenuOfertas } from "../components/MenuOfertas";
 
 
 export function MenuPage() {
   return (
-    <div>
+    <div className="flex">
       <div className="fixed top-0 right-0 left-0 border-2 border-stone-300 ">
         <nav className="mx-10 mt-10 ">
           <ul className="flex gap-10 justify-evenly text-lime-500 font-normal">
@@ -15,7 +16,12 @@ export function MenuPage() {
           </ul>
         </nav>
       </div>
-      <BusquedaVuelos />
+     
+          <BusquedaVuelos />
+          <MenuOfertas />
+     
+      
+     
 
     
     </div>

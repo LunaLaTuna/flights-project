@@ -30,7 +30,7 @@ export function VuelosInput({ placeholder, onSelect }) {
   return (
     <div>
       <AutoComplete
-        className="w-100"
+        className="w-45 "
         placeholder={placeholder}
         options={ciudades}
         onSearch={buscarCiudades}
