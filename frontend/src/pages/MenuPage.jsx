@@ -16,14 +16,7 @@ export function MenuPage() {
           </ul>
         </nav>
       </div>
-     
-          <BusquedaVuelos />
-          <MenuOfertas />
-     
-      
-     
-
-    
+      <BusquedaVuelos />
     </div>
   );
 }

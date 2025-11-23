@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AutoComplete } from "antd";
-
+import { ObtenerCiudades } from "../api";
 
 const DEFAULT_OPTIONS = [
   {
@@ -20,7 +20,7 @@ export function VuelosInput({ placeholder, onSelect }) {
     const res = await ObtenerCiudades(textoBusqueda)
     setCiudades([
       ...DEFAULT_OPTIONS,
-      ...res.data.data.map((vuelo) => ({
+      ...res.data.map((vuelo) => ({
         label: vuelo.city_name, //** label es el valor que se muestra */
         value: vuelo.city_name, //** value es el valor que se guardara  */
       })),
