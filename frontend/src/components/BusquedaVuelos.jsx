@@ -74,7 +74,11 @@ export function BusquedaVuelos() {
   };
 
   return (
-    <div className="flex-col mt-20 justify-items-center">
+    <div className="flex flex-col mt-20 ml-5 h-100 w-100 justify-center">
+
+      <div className="mb-3"> 
+        <p>BUSCA TU VUELO</p>
+      </div>
       <div className="mb-5">
         <Radio.Group
           onChange={onChangeTipoVuelos}
@@ -96,42 +100,53 @@ export function BusquedaVuelos() {
         />
       </div>
 
-      <div className="flex flex-row gap-2">
-        <VuelosInput
-          placeholder="Origen"
-          campoBusqueda="departure_city"
-          onSelect={(value) => setOrigen(value)}
-        />
+        <div className="flex flex-col gap-y-2 ">
 
-        <VuelosInput
-          placeholder="Destino"
-          campoBusqueda="arrival_city"
-          onSelect={(value) => setDestino(value)}
-        />
+          <VuelosInput
+            placeholder="Origen"
+            campoBusqueda="departure_city"
+            onSelect={(value) => setOrigen(value)}
+            
+          />
 
-        <div>
-          <Input placeholder="Número de pasajeros" value={pasajeros} onChange={handleInputPasajeros}/> {/*los input reciben un evento y es necesario usarlo para acceder a su valor */}
+          <VuelosInput
+            placeholder="Destino"
+            campoBusqueda="arrival_city"
+            onSelect={(value) => setDestino(value)}
+          />
+
+      
         </div>
-      </div>
-
-      {origen && destino && tipoVuelo === 1 && (
-        <div className="mt-2">
+          <div className=" flex flex-row mt-5 gap-2 w-full">
+            <div className="w-full">
+            <Input className="h-10 flex-1" placeholder="Número de pasajeros" value={pasajeros} onChange={handleInputPasajeros}/> {/*los input reciben un evento y es necesario usarlo para acceder a su valor */}
+            </div>
+          {origen && destino && tipoVuelo === 1 && (
+        <div className="w-full">
           <DatePicker
             onChange={onChangeTimePicker}
             format="YYYY/MM/DD"
             value={fecha}
+            className="h-10 flex-1 w-full"
+            placeholder="Seleccione una fecha"
+            
           />
         </div>
       )}
       {origen && destino && tipoVuelo === 2 && (
-        <div className="mt-2">
+        <div >
           <DatePicker.RangePicker
             onChange={(date, dateString) => setFecha(date)}
             format="YYYY/MM/DD"
             value={fecha}
+            className="h-10"
           />
         </div>
       )}
+        
+        
+        </div>
+     
 
       {origen && destino && fecha && (
         <div className="mt-2">

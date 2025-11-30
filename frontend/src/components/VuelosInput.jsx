@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AutoComplete } from "antd";
+import { AutoComplete, Input } from "antd";
 import { reservationsArrivalCity, reservationsDepartureCity } from "../api";
 
 const DEFAULT_OPTIONS = [
@@ -30,14 +30,18 @@ export function VuelosInput({ placeholder, campoBusqueda, onSelect }) {
   };
 
   return (
-    <div>
+    <div className="">
       <AutoComplete
-        className="w-100"
+        className="w-100 "
         placeholder={placeholder}
         options={vuelos}
         onSearch={buscar}
         onSelect={onSelect}
-      />
+        
+      >
+         {/*para poder colocar esta propiedad de h, solo se puede colocar en el elemento hijo que es el input, ya que d eotra manera no lo soporta */}
+        <Input className="h-10"></Input> 
+      </AutoComplete>
     </div>
   );
 }
