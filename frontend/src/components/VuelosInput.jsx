@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { AutoComplete, Input } from "antd";
-import { reservationsArrivalCity, reservationsDepartureCity } from "../api";
+import { AutoComplete } from "antd";
+import { ObtenerCiudades } from "../api";
 
 const DEFAULT_OPTIONS = [
   {
@@ -13,18 +13,16 @@ const DEFAULT_OPTIONS = [
   },
 ];
 
-export function VuelosInput({ placeholder, campoBusqueda, onSelect }) {
-  const [vuelos, setVuelos] = useState(DEFAULT_OPTIONS);
+export function VuelosInput({ placeholder, onSelect }) {
+  const [ciudades, setCiudades] = useState(DEFAULT_OPTIONS);
   //** los mismo del rest operator, al parecer sirve mucho al trabajar con los arreglos, y expandirlos */
-  const buscar = async (textoBusqueda) => {
-    const res = await (campoBusqueda === "departure_city"
-      ? reservationsDepartureCity(textoBusqueda)
-      : reservationsArrivalCity(textoBusqueda));
-    setVuelos([
+  const buscarCiudades = async (textoBusqueda) => {
+    const res = await ObtenerCiudades(textoBusqueda)
+    setCiudades([
       ...DEFAULT_OPTIONS,
       ...res.data.map((vuelo) => ({
-        label: vuelo[campoBusqueda],
-        value: vuelo[campoBusqueda],
+        label: vuelo.city_name, //** label es el valor que se muestra */
+        value: vuelo.city_name, //** value es el valor que se guardara  */
       })),
     ]);
   };
@@ -32,10 +30,10 @@ export function VuelosInput({ placeholder, campoBusqueda, onSelect }) {
   return (
     <div className="">
       <AutoComplete
-        className="w-100 "
+        className="w-45 "
         placeholder={placeholder}
-        options={vuelos}
-        onSearch={buscar}
+        options={ciudades}
+        onSearch={buscarCiudades}
         onSelect={onSelect}
         
       >
