@@ -56,6 +56,8 @@ export function BusquedaVuelos() {
     }/*por que aquí es necesario el return?? */
   };
 
+
+  //mostrar el vuelo encontrado 
   const handlerBuscarVuelos = async () => {
     const resultadoVuelos = await buscarVuelos(origen, destino, fecha);
     const pasajero = pasajeros
@@ -74,11 +76,7 @@ export function BusquedaVuelos() {
   };
 
   return (
-    <div className="flex flex-col mt-20 ml-5 h-100 w-100 justify-center">
-
-      <div className="mb-3"> 
-        <p>BUSCA TU VUELO</p>
-      </div>
+    <div className="flex-col mt-20 justify-items-center">
       <div className="mb-5">
         <Radio.Group
           onChange={onChangeTipoVuelos}
@@ -100,14 +98,12 @@ export function BusquedaVuelos() {
         />
       </div>
 
-        <div className="flex flex-col gap-y-2 ">
-
-          <VuelosInput
-            placeholder="Origen"
-            campoBusqueda="departure_city"
-            onSelect={(value) => setOrigen(value)}
-            
-          />
+      <div className="flex flex-row gap-2">
+        <VuelosInput
+          placeholder="Origen"
+          campoBusqueda="departure_city"
+          onSelect={(value) => setOrigen(value)}
+        />
 
           <VuelosInput
             placeholder="Destino"
@@ -115,7 +111,8 @@ export function BusquedaVuelos() {
             onSelect={(value) => setDestino(value)}
           />
 
-      
+        <div>
+          <Input placeholder="Número de pasajeros" value={pasajeros} onChange={handleInputPasajeros}/> {/*los input reciben un evento y es necesario usarlo para acceder a su valor */}
         </div>
           <div className=" flex flex-row mt-5 gap-2 w-full">
             <div className="w-full">
@@ -155,6 +152,7 @@ export function BusquedaVuelos() {
           </Button>
         </div>
       )}
+    </div>
     </div>
   );
 }

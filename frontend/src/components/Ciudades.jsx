@@ -9,7 +9,6 @@ export function Ciudades() {
     const res = await ObtenerCiudades();
 
     setCiudad(res.data.data);
-    return res.data;
   };
   useEffect(() => {
     Obtenerciudad();

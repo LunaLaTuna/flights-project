@@ -6,6 +6,7 @@ import requests
 from decouple import config
 from rest_framework.response import Response
 from django.db.models import Q
+import time
 # Create your views here.
 
 
@@ -45,10 +46,44 @@ class Vuelos(viewsets.ViewSet):#endponint
         return Response(data)
     
 
-class Cities(viewsets.ViewSet):
-    def list(self, request):
-        acces_key = config ('API_KEY_FLIGHT')
-        url = f"https://api.aviationstack.com/v1/cities?access_key={acces_key}"
+def get_all_cities(access_key):
+    all_cities= []
+    limit = 100
+    offset = 0
+    has_more = True
+
+    while has_more:
+        url = f"https://api.aviationstack.com/v1/cities?access_key={access_key}&limit={limit}&offset={offset}"
+
         response = requests.get(url)
         data = response.json()
-        return Response(data)
+
+        if 'data' in data and data['data']: # verificar si en los datos existe el objeto data y si no estsa vacio 
+            current_cities = data['data'] #usamos extend para agregar todos los elementos que encotremos, ya que append solo puede agregar un elemento y extend agrega todos los elementos individualmente
+            all_cities.extend(current_cities)
+            if len(current_cities) < limit :
+                has_more = False
+            else :
+                offset += limit
+        else:
+            has_more = False
+
+        time.sleep(0.1)
+    return all_cities
+
+class Cities(viewsets.ViewSet):
+    def list(self, request):
+        access_key = config ('API_KEY_FLIGHT')
+        city_name = request.query_params.get('city_name') #se recibe el parametro de city name oara poder  filtrar 
+        print(city_name)
+
+        all_cities = get_all_cities(access_key) 
+        #ahora filtramos los datos obtenido si es que hay city_name
+
+        filtrados = [] 
+        for city in all_cities:
+            if city_name in city.get('city_name'):
+                filtrados.append(city)
+                print(filtrados)
+        return Response(filtrados)
+        
